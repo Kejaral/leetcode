@@ -2,35 +2,31 @@ package P019_Remove_Nth_Node_From_End_of_List;
 
 /**
  * Created by LINGXIAOYUN on 2017/2/24.
- * 
- * @author LINGXIAOYUN 
+ *
+ * @author LINGXIAOYUN
  */
 public class Solution {
 
   public ListNode removeNthFromEnd(ListNode head, int n) {
-    ListNode temp = head;
-    int length = 1;
-    while (temp.next != null) {
-      length++;
-      temp = temp.next;
+    ListNode first = new ListNode(1);
+    ListNode second = new ListNode(2);
+    first.next = second.next = head;
+
+    for (int i = 0; i < n; i++) {
+      second = second.next;
     }
 
-    temp = head;
-
-    if (n == length) {
+    if (second.next == null) {
       return head.next;
     }
 
-    for (int i = 0; i < length - n - 1; i++) {
-      temp = temp.next;
+    while (second.next != null) {
+      first = first.next;
+      second = second.next;
     }
 
-    if (n == 0) {
-      temp.next = null;
-      return head;
-    }
+    first.next = first.next.next;
 
-    temp.next = temp.next.next;
     return head;
   }
 }
